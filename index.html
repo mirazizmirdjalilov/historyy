@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarixiy Meros | M.Mirdjalilov</title>
+    <style>
+        /* --- ZAMONAVIY-KLASSIK DIZAYN --- */
+        :root {
+            --gold: #d4af37;
+            --dark: #0f172a;
+            --accent: #b8860b;
+            --ivory: #fdfaf0;
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            background-color: var(--ivory);
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+
+        /* --- AUTH SCREEN --- */
+        #auth-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1599110364868-364162848518?auto=format&fit=crop&q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border-radius: 2px;
+            border: 1px solid var(--gold);
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 30px var(--shadow);
+        }
+
+        .auth-card h1 { font-style: italic; letter-spacing: 2px; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background: var(--dark);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--gold);
+            display: none;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 40px;
+            margin: 0;
+        }
+
+        nav a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav a:hover { text-shadow: 0 0 10px var(--gold); }
+
+        /* --- HERO SECTION --- */
+        header {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1600');
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 { font-size: 3rem; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+
+        /* --- CONTENT STYLES --- */
+        .page { display: none; padding: 60px 20px; max-width: 1200px; margin: auto; }
+        .active-page { display: block; }
+
+        /* --- GRID CARDS --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: 0.4s;
+            cursor: pointer;
+            border: 1px solid #eee;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: sepia(30%);
+            transition: 0.5s;
+        }
+
+        .card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .card:hover img { filter: sepia(0%); scale: 1.1; }
+
+        .card-body { padding: 20px; }
+        .card-body h3 { margin: 0 0 10px 0; color: var(--dark); font-style: italic; }
+        .card-body p { font-size: 0.9rem; color: #555; line-height: 1.6; }
+
+        /* --- GAME SECTION --- */
+        #game-box {
+            background: var(--dark);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+
+        /* --- UTILITY --- */
+        .btn-gold {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 12px 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .btn-gold:hover { background: white; }
+
+        input {
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: white;
+            margin-bottom: 20px;
+            width: 250px;
+            text-align: center;
+        }
+
+        footer {
+            background: var(--dark);
+            color: #888;
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 100px;
+            border-top: 3px solid var(--gold);
+        }
+
+        .author-name { color: var(--gold); font-size: 1.5rem; display: block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+    <div id="auth-screen">
+        <div class="auth-card">
+            <h1>Tarixga Sayohat</h1>
+            <p>Ismingizni muhrlang:</p>
+            <input type="text" id="username" placeholder="Ism..."> <br>
+            <button class="btn-gold" onclick="enterSite()">Kirish</button>
+        </div>
+    </div>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a onclick="showPage('home')">Bosh sahifa</a></li>
+            <li><a onclick="showPage('topics')">Eksponatlar</a></li>
+            <li><a onclick="showPage('game')">Sinov o'yini</a></li>
+            <li><a onclick="showPage('about')">Muallif</a></li>
+        </ul>
+    </nav>
+
+    <div id="pages-container">
+        
+        <section id="home" class="page active-page">
+            <header>
+                <p style="letter-spacing: 5px;">XUSH KELIBSIZ</p>
+                <h1>O'TMISH SADOALARI</h1>
+                <p>Buyuk sivilizatsiyalar sirlari bir joyda</p>
+            </header>
+            <div style="margin-top: 50px; text-align: center;">
+                <h2>Eng sara to'plamlarimiz bilan tanishing</h2>
+                <p>Quyidagi bo'limlardan birini tanlang yoki mavzularni ko'zdan kechiring.</p>
+            </div>
+        </section>
+
+        <section id="topics" class="page">
+            <h2 style="text-align: center; margin-bottom: 50px;">Tarixiy Mavzular</h2>
+            <div class="grid" id="topics-grid">
+                </div>
+        </section>
+
+        <section id="game" class="page">
+            <div id="game-box">
+                <h2>Tarix Bilimdoni</h2>
+                <div id="quiz-area">
+                    <p>O'yinni boshlashga tayyormisiz?</p>
+                    <button class="btn-gold" onclick="startQuiz()">BOSHLASH</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="page">
+            <div style="text-align: center; padding: 40px; border: 1px solid #ccc; background: white;">
+                <h2 style="color: var(--gold);">Platforma haqida</h2>
+                <p>Ushbu sayt zamonaviy veb-texnologiyalar (HTML5, CSS3, JS, PYTHON, DJANGO, FLASK, C#) yordamida klassik uslubda yaratilgan.</p>
+                <hr style="width: 50px; border-color: var(--gold);">
+                <span style="font-size: 0.8rem; letter-spacing: 2px;">DEVELOPER:</span>
+                <span class="author-name">M.Mirdjalilov</span>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Loyiha Muallifi: <span style="color: var(--gold);">M.Mirdjalilov</span></p>
+        <p>&copy; 2026 Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script>
+        // MAVZULAR VA RASMLAR
+        const historyData = [
+            { name: "Giza Piramidalari", img: "https://images.unsplash.com/photo-1503152394-c571994fd383", wiki: "Giza_piramidalari" },
+            { name: "Qadimgi Yunoniston", img: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963", wiki: "Qadimgi_Gretsiya" },
+            { name: "Rim Kolizeyi", img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5", wiki: "Kolizey" },
+            { name: "Aleksandr Makedonskiy", img: "https://images.unsplash.com/photo-1599733594230-6b823276abcc", wiki: "Aleksandr_Makedonskiy" },
+            { name: "Sparta Jangchilari", img: "https://images.unsplash.com/photo-1559664565-958e527a9744", wiki: "Sparta" },
+            { name: "Afina Akropoli", img: "https://images.unsplash.com/photo-1555992336-03a23c7b20ee", wiki: "Akropol" },
+            { name: "Tutanxamun", img: "https://images.unsplash.com/photo-1539190609415-e9468bba05c8", wiki: "Tutanxamun" },
+            { name: "Troya", img: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0", wiki: "Troya" },
+            { name: "Vizantiya Imperiyasi", img: "https://images.unsplash.com/photo-1543833441-39e83612cd4e", wiki: "Vizantiya_imperiyasi" },
+            { name: "Mesopotamiya", img: "https://images.unsplash.com/photo-1520013573795-38516d2661e4", wiki: "Mesopotamiya" },
+            { name: "Hammurapi Qonunlari", img: "https://images.unsplash.com/photo-1628123231737-77054955776d", wiki: "Hammurapi_qonunlari" },
+            { name: "Pompey Shahri", img: "https://images.unsplash.com/photo-1523528283115-9bf9b1699245", wiki: "Pompey" }
+        ];
+
+        function enterSite() {
+            if(document.getElementById('username').value.trim() !== "") {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('main-nav').style.display = 'block';
+                renderCards();
+            } else {
+                alert("Ismingizni kiriting!");
+            }
+        }
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(id).classList.add('active-page');
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('topics-grid');
+            grid.innerHTML = historyData.map(item => `
+                <div class="card" onclick="window.open('https://uz.wikipedia.org/wiki/${item.wiki}', '_blank')">
+                    <img src="${item.img}?auto=format&fit=crop&q=60&w=400" alt="${item.name}">
+                    <div class="card-body">
+                        <h3>${item.name}</h3>
+                        <p>Ushbu sivilizatsiya tarixi haqida ma'lumot olish uchun bosing. Wikipedia orqali batafsil tanishish imkoniyati.</p>
+                        <small style="color:var(--gold)">Batafsil &rarr;</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // QUIZ SYSTEM
+        const questions = [
+            { q: "Dunyoning etti mo'jizasidan biri qaysi?", a: ["Piramidalar", "Eyxel minorasi", "Samarqand"], c: "Piramidalar" },
+            { q: "Sparta qaysi davlat hududida bo'lgan?", a: ["Rim", "Gretsiya", "Misr"], c: "Gretsiya" }
+        ];
+        let qIdx = 0;
+
+        function startQuiz() {
+            if(qIdx >= questions.length) {
+                document.getElementById('quiz-area').innerHTML = "<h3>Siz tarix bilimdonisiz!</h3>";
+                return;
+            }
+            let q = questions[qIdx];
+            let btns = q.a.map(opt => `<button class="btn-gold" style="margin:5px" onclick="check('${opt}')">${opt}</button>`).join('');
+            document.getElementById('quiz-area').innerHTML = `<h4>${q.q}</h4>` + btns;
+        }
+
+        function check(val) {
+            if(val === questions[qIdx].c) {
+                qIdx++;
+                alert("To'g'ri!");
+                startQuiz();
+            } else {
+                alert("Xato, qayta ko'ring!");
+            }
+        }
+    </script>
+</body>
+</html>
